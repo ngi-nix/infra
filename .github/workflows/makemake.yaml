@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SSH_KEY: ${{ secrets.SSH_KEY }}
+      FLAKE_REF_ROOT: github:${{ github.repository }}/${{ github.sha }}
       FLAKE_REF_SHORT: github:${{ github.repository }}/${{ github.sha }}#makemake
       FLAKE_REF_TOPLEVEL: github:${{ github.repository }}/${{ github.sha }}#nixosConfigurations.makemake.config.system.build.toplevel
       SSH_HOST: root@makemake.ngi.nixos.org
@@ -29,7 +30,7 @@ jobs:
 
       - name: Build
         run: |
-          nix run nixpkgs#nixos-rebuild -- build \
+          nix run --inputs-from "$FLAKE_REF_ROOT" nixpkgs#nixos-rebuild -- build \
             --flake "$FLAKE_REF_SHORT" \
             --build-host "$SSH_HOST" \
             --target-host "$SSH_HOST"
@@ -41,7 +42,7 @@ jobs:
 
       - name: Deploy
         run: |
-          nix run nixpkgs#nixos-rebuild -- switch \
+          nix run --inputs-from "$FLAKE_REF_ROOT" nixpkgs#nixos-rebuild -- switch \
             --flake "$FLAKE_REF_SHORT" \
             --build-host "$SSH_HOST" \
             --target-host "$SSH_HOST"
