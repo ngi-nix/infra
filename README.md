@@ -9,22 +9,8 @@
 ## Rebuilding `makemake`
 
 ### Applying patches automatically
-By default, [a GitHub action deploys `makemake` automatically](https://github.com/ngi-nix/ngipkgs/actions/workflows/makemake.yaml) on every push to the `main` branch.
+By default, [a GitHub action deploys `makemake` automatically](https://github.com/ngi-nix/infra/actions/workflows/makemake.yaml) on every push to the `main` branch.
 No manual actions are required from our side.
-
-### Manually updating makemake to test changes
-A clone of this repository is stored at `/root/ngipkgs`, and is the source of
-truth for what is applied in `makemake`.
-
-To make changes to `makemake`:
-1. Create a new branch with your changes in this repository
-2. Push it to GitHub
-3. SSH into `makemake`:
-   1. Pull your changes into `/root/ngipkgs` and switch to that branch.
-   2. Apply your changes:
-      ```
-      nixos-rebuild switch --show-trace -L --flake /root/ngipkgs/#makemake
-      ```
 
 ## Using `makemake` as a remote build machine
 
@@ -36,7 +22,7 @@ To get access to `makemake`, open a pull request where you add your public SSH k
 Once your change is merged and deployed, you can verify you can access the remote store with `nix store ping --store ssh-ng://remotebuild@makemake.ngi.nixos.org`.
 
 ## Secret management
-We use [sops-nix](https://github.com/Mic92/sops-nix) to manage secrets in NGIpkgs.
+We use [sops-nix](https://github.com/Mic92/sops-nix) to manage secrets.
 In order to access the secrets they must be encrypted with your public key and you must have the matching private key available in your system.
 [SOPS](https://github.com/getsops/sops) must also be installed and configured.
 
@@ -76,8 +62,7 @@ index 68dbb5b..849002e 100644
 
 Remember to keep entries ordered alphabetically!
 
-Once that's done, you need to re-encrypt the secrets with their key.
-From the `infra` directory run:
+Once that's done, you need to re-encrypt the secrets with their key:
 
 ```
 sops updatekeys <files-you-want-to-update>

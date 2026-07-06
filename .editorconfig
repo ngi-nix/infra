@@ -1,6 +1,4 @@
-# EditorConfig configuration for NGIpkgs
-# https://EditorConfig.org
-
+# https://editorconfig.org/
 root = true
 
 [*]

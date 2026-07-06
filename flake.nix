@@ -1,5 +1,5 @@
 {
-  description = "NGIpkgs infrastructure";
+  description = "ngi-nix infrastructure";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   inputs.treefmt-nix.url = "github:numtide/treefmt-nix";
