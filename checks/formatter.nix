@@ -1,15 +1,11 @@
 {
   lib,
   pkgs,
-  sources,
-  system,
+  inputs,
   ...
 }:
-# TODO: document formatter and pre-commit hook
 lib.makeExtensible (self: {
-  treefmt = import sources.treefmt-nix;
-  pre-commit-hooks = sources.pre-commit-hooks.lib.${system};
-
+  treefmt = import inputs.treefmt-nix;
   config = {
     projectRootFile = "flake.nix";
 
@@ -24,18 +20,5 @@ lib.makeExtensible (self: {
     };
   };
 
-  # could be useful for debugging
   eval = self.treefmt.evalModule pkgs self.config;
-
-  # treefmt package
-  package = self.eval.config.build.wrapper;
-
-  # development shell that contains all formatters
-  shell = self.eval.config.build.devShell;
-
-  hooks.pre-commit = self.pre-commit-hooks.run {
-    src = ../.;
-    hooks.treefmt.enable = true;
-    hooks.treefmt.packageOverrides.treefmt = self.package;
-  };
 })
