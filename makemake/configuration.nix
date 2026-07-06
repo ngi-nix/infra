@@ -61,7 +61,7 @@
   users =
     let
       keys = with lib; mapAttrs (name: value: ./keys/${name}) (builtins.readDir ./keys);
-      deploy = with keys; [ makemake ];
+      deploy = with keys; [ github-actions ];
       infra = with keys; [
         hexa-gaia
         hexa-helix
