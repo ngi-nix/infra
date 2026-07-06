@@ -38,7 +38,7 @@ jobs:
       - name: Difference
         run: |
           ssh "$SSH_HOST" -- \
-            "nix build \"$FLAKE_REF_TOPLEVEL\" && nix run nixpkgs#nvd -- diff /run/current-system result"
+            "nix build \"$FLAKE_REF_TOPLEVEL\" && nix run --inputs-from "$FLAKE_REF_ROOT" nixpkgs#nvd -- diff /run/current-system result"
 
       - name: Deploy
         run: |
