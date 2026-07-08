@@ -24,7 +24,7 @@ Once your change is merged and deployed, you can verify you can access the remot
 ## Secret management
 We use [sops-nix](https://github.com/Mic92/sops-nix) to manage secrets.
 In order to access the secrets they must be encrypted with your public key and you must have the matching private key available in your system.
-[SOPS](https://github.com/getsops/sops) must also be installed and configured.
+[SOPS](https://github.com/getsops/sops) must also be installed and configured (provided by the devshell).
 
 ### Viewing and editing secrets
 By default on Linux, SOPS expects the private keys to be in `$XDG_CONFIG_HOME/sops/age/keys.txt` or `$HOME/.config/sops/age/keys.txt`.
@@ -32,16 +32,16 @@ You can generate an [age](https://github.com/FiloSottile/age) key using `age-key
 Once you've setup your key, you can run `sops -d <file-to-decrypt>` to view an encrypted file or `sops <file-to-edit>` to edit a file.
 
 ### Encrypting secrets for a new key
-To add a new person or a key, edit `infra/.sops.yaml`, add the name of the person and their age public key under `.humans`.
+To add a new person or a key, edit `.sops.yaml`, add the name of the person and their age public key under `.humans`.
 Additionally, you need to add their names to any files you want them to have access.
-This is done in `infra/.sops.yaml` under the `creation_rules` section.
+This is done in `.sops.yaml` under the `creation_rules` section.
 
 This is an example diff of what this might look like:
 ```
-diff --git a/infra/.sops.yaml b/infra/.sops.yaml
+diff --git a/.sops.yaml b/.sops.yaml
 index 68dbb5b..849002e 100644
---- a/infra/.sops.yaml
-+++ b/infra/.sops.yaml
+--- a/.sops.yaml
++++ b/.sops.yaml
 @@ -2,6 +2,7 @@
    .humans:
 +    - &anewuser      age1ve389y20udzc4ndx709u67dcjcclc3durqhadxs9w0ven56mncxsha5668
@@ -62,7 +62,8 @@ index 68dbb5b..849002e 100644
 
 Remember to keep entries ordered alphabetically!
 
-Once that's done, you need to re-encrypt the secrets with their key:
+Once that's done, you need to re-encrypt the secrets with their key
+(`grep path_regex .sops.yaml` to help find all encrypted files):
 
 ```
 sops updatekeys <files-you-want-to-update>
