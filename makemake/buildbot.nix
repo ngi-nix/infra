@@ -14,14 +14,8 @@ in
       inherit domain;
       enable = true;
       admins = [
-        "Erethon"
-        "fricklerhandwerk"
-        "Janik-Haag"
-        "lorenzleutgeb"
         "eljamm"
-        "erictapen"
         "imincik"
-        "OPNA2608"
         "jfly"
       ];
       workersFile = secret "workers";
