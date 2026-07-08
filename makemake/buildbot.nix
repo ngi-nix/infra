@@ -22,6 +22,7 @@ in
         "erictapen"
         "imincik"
         "OPNA2608"
+        "jfly"
       ];
       workersFile = secret "workers";
       github = {
