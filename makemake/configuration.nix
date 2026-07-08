@@ -74,6 +74,7 @@
         erethon
         lorenzleutgeb
         imincik
+        jfly
       ];
       remotebuild = with keys; [
         getpsyched
