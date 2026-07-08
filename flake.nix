@@ -43,5 +43,17 @@
       );
 
       nixosConfigurations.makemake = import makemake/default.nix { inherit inputs; };
+
+      devShells = eachSupportedSystem (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        {
+          default = pkgs.mkShell {
+            packages = [ pkgs.sops ];
+          };
+        }
+      );
     };
 }
