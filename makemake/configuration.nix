@@ -65,19 +65,15 @@
       infra = with keys; [
         hexa-gaia
         hexa-helix
-        julienmalka
         vcunat
         zimbatm
       ];
       ngi = with keys; [
-        fricklerhandwerk
         erethon
-        lorenzleutgeb
         imincik
         jfly
       ];
       remotebuild = with keys; [
-        getpsyched
         phanirithvij-iron
         prince213
       ];
