@@ -22,7 +22,7 @@ jobs:
 
       - name: Check
         run: |
-          nix flake check -v
+          nix develop -c treefmt --ci
 
       - name: Prepare SSH
         run: |
