@@ -50,8 +50,11 @@
           pkgs = nixpkgs.legacyPackages.${system};
         in
         {
-          default = pkgs.mkShell {
-            packages = [ pkgs.sops ];
+          default = pkgs.mkShellNoCC {
+            packages = [
+              pkgs.sops
+              treefmtEvals.${system}.config.build.wrapper
+            ];
           };
         }
       );
