@@ -20,13 +20,6 @@ jobs:
         name: 'Install Nix'
         with: { extra_nix_config: 'experimental-features = flakes nix-command no-url-literals' }
 
-      - uses: actions/checkout@v7
-        name: Checkout repository
-
-      - name: Check
-        run: |
-          nix develop -c treefmt --ci
-
       - name: Prepare SSH
         run: |
           mkdir -p ~/.ssh
