@@ -74,6 +74,7 @@
         jfly
       ];
       remotebuild = with keys; [
+        eljamm
         julm
         phanirithvij-iron
         prince213
