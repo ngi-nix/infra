@@ -1,5 +1,6 @@
 .keys:
   .humans:
+    - &eljamm           age1zvazxldyjkg5pkxvmjm06ggzx4jcfhj2pqgl4pznjp7mlkl46u3q0x5hkg
     - &erethon          age187upwqdte7t0hkyec22jhac357m9y4fkcdvpg9sj5q9mekjupfnqg9a077
     - &jfly             age1meq58vp6967n8zf3nhl9uma8uyxtus6xy6ps800p4uehwm7m3g4s4aa2pe
   .machines:
@@ -9,12 +10,14 @@ creation_rules:
   - path_regex: makemake/secrets
     key_groups:
       - age:
+        - *eljamm
         - *erethon
         - *jfly
         - *makemake
   - path_regex: secrets.json
     key_groups:
       - age:
+        - *eljamm
         - *erethon
         - *jfly
         - *makemake
