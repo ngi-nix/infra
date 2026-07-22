@@ -30,7 +30,7 @@ in
       useHTTPS = true;
       cachix = {
         enable = true;
-        name = "ngi";
+        name = "ngi-forge";
         auth.authToken.file = config.sops.secrets."cachix".path;
       };
       showTrace = true;
