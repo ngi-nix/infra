@@ -72,10 +72,11 @@
         erethon
         imincik
         jfly
+        eljamm
+        phanirithvij-iron
       ];
       remotebuild = with keys; [
         julm
-        phanirithvij-iron
         prince213
       ];
     in

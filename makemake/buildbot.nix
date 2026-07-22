@@ -17,6 +17,7 @@ in
         "eljamm"
         "imincik"
         "jfly"
+        "phanirithvij"
       ];
       workersFile = secret "workers";
       github = {
