@@ -34,6 +34,7 @@ jobs:
         #       stable.
         run: |
           nix run --inputs-from "$FLAKE_REF_ROOT" nixpkgs-unstable#nixos-rebuild -- build \
+            --no-reexec \
             --flake "$FLAKE_REF_SHORT" \
             --build-host "$SSH_HOST" \
             --target-host "$SSH_HOST"
@@ -49,6 +50,7 @@ jobs:
         #       stable.
         run: |
           nix run --inputs-from "$FLAKE_REF_ROOT" nixpkgs-unstable#nixos-rebuild -- switch \
+            --no-reexec \
             --flake "$FLAKE_REF_SHORT" \
             --build-host "$SSH_HOST" \
             --target-host "$SSH_HOST"
