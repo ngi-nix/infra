@@ -8,6 +8,7 @@
     ./buildbot.nix
     ./hardware.nix
     ./sops.nix
+    ./zfs.nix
   ];
 
   networking.hostName = "makemake";
@@ -140,21 +141,6 @@
     prometheus.exporters.node = {
       enable = true;
       openFirewall = true;
-    };
-  };
-
-  fileSystems = {
-    "/" = {
-      device = "rpool/root";
-      fsType = "zfs";
-    };
-    "/boot" = {
-      device = "/dev/disk/by-label/boot0";
-      fsType = "ext4";
-    };
-    "/postgres" = {
-      device = "rpool/postgres";
-      fsType = "zfs";
     };
   };
 
