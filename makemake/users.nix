@@ -133,8 +133,15 @@ in
     }
   ];
 
-  # Users in the remotebuild group are trusted.
-  nix.settings.trusted-users = [ "@remotebuild" ];
+  nix.settings.trusted-users = [
+    # This allows using `makemake` as a remote builder.
+    "@remotebuild"
+    # Enable deployments by non-root users.
+    "@wheel"
+  ];
+
+  # Users don't have passwords, just ssh keys.
+  security.sudo.wheelNeedsPassword = false;
 
   users = {
     mutableUsers = false;
