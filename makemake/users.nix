@@ -116,14 +116,14 @@ in
             echo "*** NOTE: SSH access as the root user is deprecated, and will be removed soon! ***" >&2
             echo "" >&2
             echo "Please switch to to your own personal user." >&2
-            echo "See <https://github.com/ngi-nix/infra/issues/26> for details." >&2
+            echo "See <https://github.com/ngi-nix/infra/issues/37> for details." >&2
           '';
           remoteBuildBashProfile = pkgs.writeText "bash_profile" /* bash */ ''
             echo "" >&2
             echo "*** NOTE: The remotebuild user is deprecated, and will be removed soon! ***" >&2
             echo "" >&2
             echo "Please switch to to your own personal user." >&2
-            echo "See <https://github.com/ngi-nix/infra/issues/26> for details." >&2
+            echo "See <https://github.com/ngi-nix/infra/issues/37> for details." >&2
           '';
         in
         [
@@ -139,5 +139,13 @@ in
   users = {
     mutableUsers = false;
     groups.remotebuild = { };
+    users = lib.mapAttrs (name: user: {
+      isNormalUser = true;
+      extraGroups = builtins.concatLists [
+        (lib.optional (user.remotebuild or false) "remotebuild")
+        (lib.optional (user.wheel or false) "wheel")
+      ];
+      openssh.authorizedKeys.keys = user.keys;
+    }) users;
   };
 }
