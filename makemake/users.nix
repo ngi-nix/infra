@@ -88,56 +88,56 @@ let
   };
 in
 {
+  imports = [
+    # TODO: remove this once everyone is using personal accounts:
+    # <https://github.com/ngi-nix/infra/issues/26>.
+    {
+      users.users.root.openssh.authorizedKeys.keys = lib.pipe users [
+        (lib.filterAttrs (name: user: user.wheel or false))
+        (lib.mapAttrsToList (name: user: user.keys))
+        lib.flatten
+      ];
+
+      users.users.remotebuild = {
+        isNormalUser = true;
+        createHome = false;
+        group = "remotebuild";
+        openssh.authorizedKeys.keys = lib.pipe users [
+          (lib.filterAttrs (name: user: user.remotebuild or false))
+          (lib.mapAttrsToList (name: user: user.keys))
+          lib.flatten
+        ];
+      };
+
+      systemd.tmpfiles.rules =
+        let
+          rootBashProfile = pkgs.writeText "bash_profile" /* bash */ ''
+            echo "" >&2
+            echo "*** NOTE: SSH access as the root user is deprecated, and will be removed soon! ***" >&2
+            echo "" >&2
+            echo "Please switch to to your own personal user." >&2
+            echo "See <https://github.com/ngi-nix/infra/issues/26> for details." >&2
+          '';
+          remoteBuildBashProfile = pkgs.writeText "bash_profile" /* bash */ ''
+            echo "" >&2
+            echo "*** NOTE: The remotebuild user is deprecated, and will be removed soon! ***" >&2
+            echo "" >&2
+            echo "Please switch to to your own personal user." >&2
+            echo "See <https://github.com/ngi-nix/infra/issues/26> for details." >&2
+          '';
+        in
+        [
+          "L+ /root/.bash_profile 0644 root root - ${rootBashProfile}"
+          "L+ /home/remotebuild/.bash_profile 0644 remotebuild remotebuild - ${remoteBuildBashProfile}"
+        ];
+    }
+  ];
+
   # Users in the remotebuild group are trusted.
   nix.settings.trusted-users = [ "@remotebuild" ];
 
   users = {
     mutableUsers = false;
     groups.remotebuild = { };
-
-    # TODO: drop root access, instead force people to ssh as their specific user:
-    # <https://github.com/ngi-nix/infra/issues/26>.
-    users.root.openssh.authorizedKeys.keys = lib.pipe users [
-      (lib.filterAttrs (name: user: user.wheel or false))
-      (lib.mapAttrsToList (name: user: user.keys))
-      lib.flatten
-    ];
-
-    # TODO: remove the remotebuild user once everyone is using personal accounts:
-    # <https://github.com/ngi-nix/infra/issues/26>.
-    users.remotebuild = {
-      isNormalUser = true;
-      createHome = false;
-      group = "remotebuild";
-      openssh.authorizedKeys.keys = lib.pipe users [
-        (lib.filterAttrs (name: user: user.remotebuild or false))
-        (lib.mapAttrsToList (name: user: user.keys))
-        lib.flatten
-      ];
-    };
   };
-
-  # TODO: clean up once everyone is using personal accounts:
-  # <https://github.com/ngi-nix/infra/issues/26>.
-  systemd.tmpfiles.rules =
-    let
-      rootBashProfile = pkgs.writeText "bash_profile" /* bash */ ''
-        echo "" >&2
-        echo "*** NOTE: SSH access as the root user is deprecated, and will be removed soon! ***" >&2
-        echo "" >&2
-        echo "Please switch to to your own personal user." >&2
-        echo "See <https://github.com/ngi-nix/infra/issues/26> for details." >&2
-      '';
-      remoteBuildBashProfile = pkgs.writeText "bash_profile" /* bash */ ''
-        echo "" >&2
-        echo "*** NOTE: The remotebuild user is deprecated, and will be removed soon! ***" >&2
-        echo "" >&2
-        echo "Please switch to to your own personal user." >&2
-        echo "See <https://github.com/ngi-nix/infra/issues/26> for details." >&2
-      '';
-    in
-    [
-      "L+ /root/.bash_profile 0644 root root - ${rootBashProfile}"
-      "L+ /home/remotebuild/.bash_profile 0644 remotebuild remotebuild - ${remoteBuildBashProfile}"
-    ];
 }
