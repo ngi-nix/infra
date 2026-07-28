@@ -17,9 +17,7 @@ No manual actions are required from our side.
 If you're a participant of [Summer of Nix](https://github.com/ngi-nix/summer-of-nix), you can use `makemake` as a remote build machine.
 Read the tutorial on [setting up distributed builds](https://nix.dev/tutorials/nixos/distributed-builds-setup) for details.
 
-To get access to `makemake`, open a pull request where you add your public SSH key to the [`keys`](./makemake/keys) directory and the list of authorized keys for the `remotebuild` user in [`configuration.nix`](./makemake/configuration.nix).
-
-Once your change is merged and deployed, you can verify you can access the remote store with `nix store ping --store ssh-ng://remotebuild@makemake.ngi.nixos.org`.
+To get access to `makemake`, follow the instructions in [`users.nix`](./makemake/users.nix) and open a pull request.
 
 ## Secret management
 We use [sops-nix](https://github.com/Mic92/sops-nix) to manage secrets.
