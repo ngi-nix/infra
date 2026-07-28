@@ -10,6 +10,7 @@ lib.makeExtensible (self: {
     projectRootFile = "flake.nix";
 
     programs.actionlint.enable = true;
+    programs.keep-sorted.enable = true;
     programs.nixfmt.enable = true;
     programs.zizmor.enable = false;
 
