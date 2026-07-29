@@ -112,11 +112,13 @@ in
       systemd.tmpfiles.rules =
         let
           rootBashProfile = pkgs.writeText "bash_profile" /* bash */ ''
-            echo "" >&2
-            echo "*** NOTE: SSH access as the root user is deprecated, and will be removed soon! ***" >&2
-            echo "" >&2
-            echo "Please switch to to your own personal user." >&2
-            echo "See <https://github.com/ngi-nix/infra/issues/37> for details." >&2
+            if [ -n "$SSH_CONNECTION" ]; then
+              echo "" >&2
+              echo "*** NOTE: SSH access as the root user is deprecated, and will be removed soon! ***" >&2
+              echo "" >&2
+              echo "Please switch to to your own personal user." >&2
+              echo "See <https://github.com/ngi-nix/infra/issues/37> for details." >&2
+            fi
           '';
           remoteBuildBashProfile = pkgs.writeText "bash_profile" /* bash */ ''
             echo "" >&2
