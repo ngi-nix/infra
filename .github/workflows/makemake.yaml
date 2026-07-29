@@ -14,7 +14,7 @@ jobs:
       FLAKE_REF_ROOT: github:${{ github.repository }}/${{ github.sha }}
       FLAKE_REF_SHORT: github:${{ github.repository }}/${{ github.sha }}#makemake
       FLAKE_REF_TOPLEVEL: github:${{ github.repository }}/${{ github.sha }}#nixosConfigurations.makemake.config.system.build.toplevel
-      SSH_HOST: root@makemake.ngi.nixos.org
+      SSH_HOST: deploy@makemake.ngi.nixos.org
     steps:
       - uses: cachix/install-nix-action@630ae543ea3a38a9a4166f03376c02c50f408342 # v31.11.0
         name: 'Install Nix'
@@ -51,6 +51,7 @@ jobs:
         run: |
           nix run --inputs-from "$FLAKE_REF_ROOT" nixpkgs-unstable#nixos-rebuild -- switch \
             --no-reexec \
+            --elevate=sudo \
             --flake "$FLAKE_REF_SHORT" \
             --build-host "$SSH_HOST" \
             --target-host "$SSH_HOST"
