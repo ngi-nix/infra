@@ -2,9 +2,6 @@
   description = "ngi-nix infrastructure";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
-  # Remove `nixpkgs-unstable` once <https://github.com/NixOS/nixpkgs/pull/546399>
-  # has landed in stable.
-  inputs.nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   inputs.treefmt-nix.url = "github:numtide/treefmt-nix";
   inputs.treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
   inputs.sops-nix.inputs.nixpkgs.follows = "nixpkgs";
