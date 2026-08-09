@@ -45,7 +45,7 @@ jobs:
         run: |
           nix run --inputs-from "$FLAKE_REF_ROOT" nixpkgs#nixos-rebuild -- switch \
             --no-reexec \
-            --elevate=sudo \
+            --sudo \
             --flake "$FLAKE_REF_SHORT" \
             --build-host "$SSH_HOST" \
             --target-host "$SSH_HOST"
