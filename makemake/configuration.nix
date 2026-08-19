@@ -99,6 +99,11 @@
           reverse_proxy 127.0.0.1:3000
         '';
       };
+      virtualHosts."dev.ngi.nixos.org" = {
+        extraConfig = ''
+          reverse_proxy 127.0.0.1:4000
+        '';
+      };
     };
     openssh = {
       enable = true;
