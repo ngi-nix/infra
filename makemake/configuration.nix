@@ -6,6 +6,7 @@
 {
   imports = [
     ./buildbot.nix
+    ./git-pages.nix
     ./hardware.nix
     ./sops.nix
     ./zfs.nix
