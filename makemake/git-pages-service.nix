@@ -55,7 +55,7 @@ in
     settings = lib.mkOption {
       type = settingsFormat.type;
       description = "Settings to set in git-pages.toml. See https://codeberg.org/git-pages/git-pages";
-      default = settingsFormat.emptyValue;
+      default = { };
     };
   };
 
