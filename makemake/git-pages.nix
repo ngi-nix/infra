@@ -5,7 +5,9 @@
     _module.args.pkgs = pkgs;
     imports = [ ./git-pages-service.nix ];
     git-pages = {
-      package = pkgs.git-pages;
+      package = pkgs.git-pages.overrideAttrs (old: {
+        patches = (old.patches or [ ]) ++ [ ./0001-Retain-query-params.patch ];
+      });
       port = 4000;
       caddyPort = null;
       metricsPort = 4002;
