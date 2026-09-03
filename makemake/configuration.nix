@@ -5,12 +5,12 @@
 }:
 {
   imports = [
-    ./buildbot.nix
-    ./git-pages.nix
-    ./hardware.nix
-    ./sops.nix
-    ./zfs.nix
-    ./users.nix
+    ./modules/buildbot
+    ./modules/git-pages
+    ./modules/hardware.nix
+    ./modules/sops.nix
+    ./modules/zfs.nix
+    ./modules/users.nix
   ];
 
   networking.hostName = "makemake";

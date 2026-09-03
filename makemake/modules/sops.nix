@@ -1,6 +1,6 @@
 {
   sops = {
-    defaultSopsFile = ../secrets.json;
+    defaultSopsFile = ../../secrets.json;
     secrets = {
       cachix = { };
     };
