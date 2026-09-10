@@ -34,11 +34,11 @@ let
 in
 {
   system.services.git-pages = {
-    # NOTE: to pass pkgs to git-pages-service.nix as an argument
-    _module.args.pkgs = pkgs;
-    imports = [ ./git-pages-service.nix ];
+    imports = [
+      git-pages'.services.default
+      ./git-pages-expiry.nix
+    ];
     git-pages = {
-      package = git-pages';
       settings.server = {
         pages = "tcp/0.0.0.0:4000";
         caddy = "-";
