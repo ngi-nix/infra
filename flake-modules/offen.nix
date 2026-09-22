@@ -110,11 +110,10 @@ in
         );
       };
 
-      # TODO: enable once Offen is setup.
-      # services.caddy.virtualHosts."offen.ngi.nixos.org" = {
-      #   extraConfig = ''
-      #     reverse_proxy 127.0.0.1:${toString offenPort}
-      #   '';
-      # };
+      services.caddy.virtualHosts."offen.ngi.nixos.org" = {
+        extraConfig = ''
+          reverse_proxy 127.0.0.1:${toString offenPort}
+        '';
+      };
     };
 }
