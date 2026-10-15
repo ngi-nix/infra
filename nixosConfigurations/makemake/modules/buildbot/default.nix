@@ -34,6 +34,10 @@ in
         auth.authToken.file = config.sops.secrets."cachix".path;
       };
       showTrace = true;
+      # Tuned for github:ngi-nix/forge#checks
+      # Explanation: https://github.com/ngi-nix/infra/issues/50#issuecomment-6115460654
+      evalWorkerCount = 3;
+      evalMaxMemorySize = 8192;
     };
 
     buildbot-nix.worker = {
