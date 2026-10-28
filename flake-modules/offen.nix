@@ -15,7 +15,9 @@ let
 in
 {
   perSystem = { self', pkgs, ... }: {
+    forge.pkgs.offen.enable = true;
     forge.apps.offen = {
+      enable = true;
       description = lib.mkForce "Custom offen service configuration.";
       services.components.offen.process = {
         command = lib.mkForce (
