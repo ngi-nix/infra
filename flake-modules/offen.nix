@@ -62,7 +62,7 @@ in
           OFFEN_SERVER_PORT = lib.mkForce (toString offenPort);
 
           # Offen would prefer that you *not* run it behind a reverse proxy [0].
-          # We must, though, as we already have nginx bound on 80 and 443, or
+          # We must, though, as we already have caddy bound on 80 and 443, or
           # we'd need another public IP address to bind on 80 and 443.
           #
           # [0]: https://docs.offen.dev/running-offen/installation-requirements/#running-the-application-behind-a-reverse-proxy
